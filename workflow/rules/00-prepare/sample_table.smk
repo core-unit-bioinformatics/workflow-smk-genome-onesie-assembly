@@ -32,7 +32,7 @@ def process_sample_sheet():
         sample for (sample, _) in sample_input.keys()
     )
     assert sum(sample_counts.values()) == SAMPLE_SHEET.shape[0]
-    all_samples = sorted(sample_counts.keys()))
+    all_samples = sorted(sample_counts.keys())
 
     global SAMPLES
     SAMPLES = all_samples
