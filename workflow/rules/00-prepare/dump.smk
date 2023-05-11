@@ -1,8 +1,27 @@
 
+rule index_pacbio_bam_file:
+    input:
+        bam = "{filepath}.bam"
+    output:
+        pbi = "{filepath}.bam.pbi"
+    conda:
+        DIR_ENVS.joinpath("pbtools.yaml")
+    threads: CPU_LOW
+    resources:
+        mem_mb=lambda wc, attempt: 2048 * attempt,
+        time_hrs=lambda wc, attempt: 5 * attempt
+    shell:
+        "pbindex --num-threads {threads} {input.bam}"
+
+
 rule dump_bam_to_fastq:
     input:
         bam = lambda wc:
-            MAP_SAMPLE_TO_INPUT_FILES[(wc.sample, wc.read_type)][("bam", wc.path_id)]
+            MAP_SAMPLE_TO_INPUT_FILES[(wc.sample, wc.read_type)][("bam", wc.path_id)],
+        pbi = lambda wc:
+            pathlib.Path(
+                MAP_SAMPLE_TO_INPUT_FILES[(wc.sample, wc.read_type)][("bam", wc.path_id)]
+            ).with_suffix(".bam.pbi")
     output:
         fastq = DIR_PROC.joinpath(
             "00-prepare", "dump_fastq", "{sample}_{read_type}.{path_id}.fastq.gz"
@@ -19,7 +38,7 @@ rule dump_bam_to_fastq:
         DIR_ENVS.joinpath("pbtools.yaml")
     threads: CPU_LOW
     resources:
-        mem_mb=lambda wc, attempt: 2048 * attempt,
+        mem_mb=lambda wc, attempt: 4096 * attempt,
         time_hrs=lambda wc, attempt: 23 * attempt
     params:
         prefix=lambda wc, output: str(output.fastq).rsplit(".", 2)[0]
