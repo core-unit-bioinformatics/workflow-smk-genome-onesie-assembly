@@ -4,7 +4,7 @@ RUN_FLYE = config.get("run_flye", False)
 assert isinstance(RUN_FLYE, bool)
 
 if RUN_FLYE:
-    FLYE_GENOME_SIZE_PARAM = config("flye_genome_size")
+    FLYE_GENOME_SIZE_PARAM = config["flye_genome_size"]
     assert isinstance(FLYE_GENOME_SIZE_PARAM, str)
 else:
     FLYE_GENOME_SIZE_PARAM = ""
