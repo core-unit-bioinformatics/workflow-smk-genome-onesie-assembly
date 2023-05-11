@@ -4,3 +4,11 @@ required for your pipeline - do not
 add your pipeline-specific modules
 to "commons/00_commons.smk"
 """
+
+include: "00-prepare/sample_table.smk"
+include: "00-prepare/settings.smk"
+include: "00-prepare/dump.smk"
+
+include: "10-assemble/pacbio_clr.smk"
+
+include: "99-outputs/flye.smk"

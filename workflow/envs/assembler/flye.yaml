@@ -1,0 +1,4 @@
+name: flye
+dependencies:
+  - flye=2.9.2
+  - purge_dups=1.2.6

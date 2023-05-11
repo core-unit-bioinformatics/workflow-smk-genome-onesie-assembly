@@ -1,0 +1,5 @@
+name: pbtools
+dependencies:
+  - pbtk=3.1.0
+  - pbmm2=1.10.0
+  - pigz=2.6
