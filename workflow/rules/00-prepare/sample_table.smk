@@ -28,11 +28,11 @@ def process_sample_sheet():
     # step 1: each row is a sample,
     # just collect the input files
     sample_input, sample_lists = collect_input_files(SAMPLE_SHEET)
-    num_samples = collections.Counter(
+    sample_counts = collections.Counter(
         sample for (sample, _) in sample_input.keys()
-    ).total()
-    assert num_samples == SAMPLE_SHEET.shape[0]
-    all_samples = sorted(set(sample for (sample, _) in sample_input.keys()))
+    )
+    assert sum(sample_counts.values()) == SAMPLE_SHEET.shape[0]
+    all_samples = sorted(sample_counts.keys()))
 
     global SAMPLES
     SAMPLES = all_samples
