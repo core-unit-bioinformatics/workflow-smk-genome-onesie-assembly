@@ -9,7 +9,7 @@ rule index_pacbio_bam_file:
     threads: CPU_LOW
     resources:
         mem_mb=lambda wc, attempt: 2048 * attempt,
-        time_hrs=lambda wc, attempt: 5 * attempt
+        time_hrs=lambda wc, attempt: 1 * attempt
     shell:
         "pbindex --num-threads {threads} {input.bam}"
 
