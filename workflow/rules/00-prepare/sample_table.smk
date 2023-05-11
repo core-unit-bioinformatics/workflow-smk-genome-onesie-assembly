@@ -125,12 +125,11 @@ def collect_input_files(sample_sheet):
                 dumped_fastq_path = DIR_PROC.joinpath(
                     "00-prepare", "dump_fastq", fastq_file
                 )
-                all_fastq.append(dumped_fastq_path)
                 level_2_key = "fastq", path_id
-                file_map[level_2_key] = fastq_file
+                file_map[level_2_key] = dumped_fastq_path
                 file_map[("fastq", "path_ids")].append(path_id)
                 file_map[("fastq", "path_hashes")].append(path_hash)
-                file_map[("fastq", "all")].append(fastq_file)
+                file_map[("fastq", "all")].append(dumped_fastq_path)
             else:  # assume FASTA/FASTQ etc.
                 level_2_key = "fastq", path_id
                 file_map[level_2_key] = seq_file
