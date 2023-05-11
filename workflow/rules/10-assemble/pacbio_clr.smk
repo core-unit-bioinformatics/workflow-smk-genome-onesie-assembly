@@ -40,7 +40,7 @@ rule run_flye_pacbio_clr_assemblies:
     input:
         checks = expand(
             DIR_PROC.joinpath(
-                "assemblies", "flye", "{sample}_clr.ok"
+                "10-assemble", "flye", "{sample}_clr.ok"
             ),
             sample=CLR_SAMPLES
         )
