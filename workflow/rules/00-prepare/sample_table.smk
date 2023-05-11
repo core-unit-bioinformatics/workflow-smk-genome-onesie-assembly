@@ -30,7 +30,7 @@ def process_sample_sheet():
     sample_input, sample_lists = collect_input_files(SAMPLE_SHEET)
     num_samples = collections.Counter(
         sample for (sample, _) in sample_input.keys()
-    ).sum()
+    ).total()
     assert num_samples == SAMPLE_SHEET.shape[0]
     all_samples = sorted(set(sample for (sample, _) in sample_input.keys()))
 
