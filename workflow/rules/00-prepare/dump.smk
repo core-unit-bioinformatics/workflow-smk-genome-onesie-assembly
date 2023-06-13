@@ -39,7 +39,7 @@ rule dump_bam_to_fastq:
     threads: CPU_LOW
     resources:
         mem_mb=lambda wc, attempt: 4096 * attempt,
-        time_hrs=lambda wc, attempt: 23 * attempt
+        time_hrs=lambda wc, attempt: 71 * attempt
     params:
         prefix=lambda wc, output: str(output.fastq).rsplit(".", 2)[0]
     shell:
