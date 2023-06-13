@@ -47,11 +47,13 @@ rule pbmm2_produce_polishing_alignments:
         )
     log:
         DIR_LOG.joinpath(
-            "20-postprocess", "pacbio_clr", "{sample}_clr.pbmm2.log"
+            "20-postprocess", "pacbio_clr", "read_asm_align",
+            "{sample}_clr.pbmm2.log"
         )
     benchmark:
         DIR_RSRC.joinpath(
-            "20-postprocess", "pacbio_clr", "{sample}_clr.pbmm2.rsrc"
+            "20-postprocess", "pacbio_clr", "read_asm_align",
+            "{sample}_clr.pbmm2.rsrc"
         )
     conda:
         DIR_ENVS.joinpath("pbtools.yaml")
