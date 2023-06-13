@@ -28,7 +28,7 @@ rule flye_assemble_pacbio_clr:
         mem_mb=lambda wildcards, attempt: int((768 + 288 * attempt) * 1024),
         time_hrs=lambda wildcards, attempt: 71 * attempt
     params:
-        wd=lambda wildcards, output: pathlib.Path(output.check).with_suffix(".wd"),
+        wd=lambda wildcards, output: pathlib.Path(output.asm).parent,
         gsize=FLYE_GENOME_SIZE_PARAM,
         keep_hap=FLYE_KEEP_HAPLOTYPES_PARAM,
         no_alt=FLYE_NO_ALT_CONTIGS_PARAM
