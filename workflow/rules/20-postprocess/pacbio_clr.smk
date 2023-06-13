@@ -12,13 +12,15 @@ rule pacbio_create_bam_fofn_file:
     run:
         import pathlib as pl
 
+        assert len(input.reads) > 0
+
         file_paths = []
         for read_file in input.reads:
             assert pl.Path(read_file).is_file()
             file_paths.append(str(read_file))
 
         with open(output.fofn, "w") as fofn_dump:
-            _ = "\n".join(sorted(file_paths))
+            _ = fofn_dump.write("\n".join(sorted(file_paths)) + "\n")
     # END OF RUN BLOCK
 
 
