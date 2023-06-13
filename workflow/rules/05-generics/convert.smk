@@ -1,19 +1,4 @@
 
-rule index_pacbio_bam_file:
-    input:
-        bam = "{filepath}.bam"
-    output:
-        pbi = "{filepath}.bam.pbi"
-    conda:
-        DIR_ENVS.joinpath("pbtools.yaml")
-    threads: CPU_LOW
-    resources:
-        mem_mb=lambda wc, attempt: 2048 * attempt,
-        time_hrs=lambda wc, attempt: 1 * attempt
-    shell:
-        "pbindex --num-threads {threads} {input.bam}"
-
-
 rule dump_bam_to_fastq:
     input:
         bam = lambda wc:

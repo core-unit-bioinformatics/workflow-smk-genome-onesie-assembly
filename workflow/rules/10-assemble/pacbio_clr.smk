@@ -4,9 +4,15 @@ rule flye_assemble_pacbio_clr:
         reads = lambda wildcards:
             MAP_SAMPLE_TO_INPUT_FILES[(wildcards.sample, "clr")][("fastq", "all")]
     output:
-        check = DIR_PROC.joinpath(
-            "10-assemble", "flye", "{sample}_clr.ok"
-        )
+        asm = DIR_PROC.joinpath(
+            "10-assemble", "flye", "{sample}_clr.wd", "assembly.fasta",
+        ),
+        graph = DIR_PROC.joinpath(
+            "10-assemble", "flye", "{sample}_clr.wd", "assembly_graph.gfa",
+        ),
+        info = DIR_PROC.joinpath(
+            "10-assemble", "flye", "{sample}_clr.wd", "assembly_info.txt",
+        ),
     log:
         DIR_LOG.joinpath(
             "10-assemble", "flye", "{sample}_clr.assm.log"
@@ -40,7 +46,7 @@ rule run_flye_pacbio_clr_assemblies:
     input:
         checks = expand(
             DIR_PROC.joinpath(
-                "10-assemble", "flye", "{sample}_clr.ok"
+                "10-assemble", "flye", "{sample}_clr.wd", "assembly.fasta"
             ),
             sample=CLR_SAMPLES
         )

@@ -7,8 +7,12 @@ to "commons/00_commons.smk"
 
 include: "00-prepare/sample_table.smk"
 include: "00-prepare/settings.smk"
-include: "00-prepare/dump.smk"
+
+include: "05-generics/indexing.smk"
+include: "05-generics/convert.smk"
 
 include: "10-assemble/pacbio_clr.smk"
+
+include: "20-postprocess/pacbio_clr.smk"
 
 include: "99-outputs/flye.smk"
