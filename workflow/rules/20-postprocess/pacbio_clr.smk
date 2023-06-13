@@ -62,10 +62,10 @@ rule pbmm2_produce_polishing_alignments:
         mem_mb=lambda wc, attempt: int((64 + 64 * attempt) * 1024),
         time_hrs=lambda wc, attempt: 71 * attempt,
     params:
-        sort_mem=2048,
+        sort_mem=4096,
         sort_threads=CPU_LOW
     shell:
-        "pbmm2 align --sort --sort-memory {params.sort_mem} --sort-threads {params.sort_threads} "
+        "pbmm2 align --sort --sort-memory {params.sort_mem}M --sort-threads {params.sort_threads} "
             "--num-threads {threads} --log-level DEBUG --log-file {log} "
             "--preset SUBREAD --sample {wildcards.sample} --bam-index NONE "
             "{input.asm} {input.reads_fofn} {output.bam}"
