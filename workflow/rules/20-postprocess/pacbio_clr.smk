@@ -55,7 +55,7 @@ rule pbmm2_produce_polishing_alignments:
         )
     conda:
         DIR_ENVS.joinpath("pbtools.yaml")
-    threads: CPU_MEDIUM
+    threads: CPU_HIGH
     resources:
         mem_mb=lambda wc, attempt: int((64 + 64 * attempt) * 1024),
         time_hrs=lambda wc, attempt: 71 * attempt,
@@ -108,7 +108,7 @@ rule gcpp_assembly_polishing_pass1:
         )
     conda:
         DIR_ENVS.joinpath("pbtools.yaml")
-    threads: CPU_MEDIUM
+    threads: CPU_HIGH
     resources:
         mem_mb=lambda wc, attempt: int((64 + 32 * attempt) * 1024),
         time_hrs=lambda wc, attempt: 71 * attempt,
