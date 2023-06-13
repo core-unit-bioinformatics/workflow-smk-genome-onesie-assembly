@@ -63,7 +63,7 @@ rule pbmm2_produce_polishing_alignments:
         sort_mem=2048,
         sort_threads=CPU_LOW
     shell:
-        "pbmm2 --sort --sort-memory {params.sort_mem} --sort-threads {params.sort_threads} "
+        "pbmm2 align --sort --sort-memory {params.sort_mem} --sort-threads {params.sort_threads} "
             "--num-threads {threads} --log-level DEBUG --log-file {log} "
             "--preset SUBREAD --sample {wildcards.sample} --bam-index NONE "
             "{input.asm} {input.reads_fofn} {output.bam}"
