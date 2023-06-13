@@ -38,8 +38,6 @@ rule flye_assemble_pacbio_clr:
             "{params.no_alt} "
             "{params.keep_hap} "
             "--out-dir {params.wd} &> {log}"
-                " && "
-            "touch {output.check}"
 
 
 rule run_flye_pacbio_clr_assemblies:
