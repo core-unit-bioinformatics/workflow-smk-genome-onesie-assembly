@@ -1,6 +1,4 @@
-name: pbtools
+name: biotools
 dependencies:
-  - pbtk=3.1.0
-  - pbmm2=1.10.0
-  - pbgcpp=2.0.2
+  - samtools=1.16.1
   - pigz=2.6
