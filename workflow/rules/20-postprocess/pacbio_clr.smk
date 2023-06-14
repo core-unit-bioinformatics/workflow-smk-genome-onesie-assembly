@@ -59,16 +59,22 @@ rule pbmm2_produce_polishing_alignments:
         DIR_ENVS.joinpath("pbtools.yaml")
     threads: CPU_HIGH
     resources:
-        mem_mb=lambda wc, attempt: int((64 + 64 * attempt) * 1024),
+        mem_mb=lambda wc, attempt: int((96 + 64 * attempt) * 1024),
         time_hrs=lambda wc, attempt: 71 * attempt,
+        tempdir=lambda wc: DIR_PROC.joinpath(
+            "tmp", "20-postprocess", "pacbio_clr", "read_asm_align",
+            "{sample}_clr.sort.wd"
+        )
     params:
         sort_mem=4096,
         sort_threads=CPU_LOW
     shell:
+        "mkdir -p {params.tempdir} && TMPDIR={params.tempdir} "
         "pbmm2 align --sort --sort-memory {params.sort_mem}M --sort-threads {params.sort_threads} "
             "--num-threads {threads} --log-level DEBUG --log-file {log} "
             "--preset SUBREAD --sample {wildcards.sample} --bam-index NONE "
             "{input.asm} {input.reads_fofn} {output.bam}"
+        " ; rm -rfd {params.tempdir}"
 
 
 rule gcpp_assembly_polishing_pass1:
