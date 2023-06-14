@@ -61,13 +61,13 @@ rule pbmm2_produce_polishing_alignments:
     resources:
         mem_mb=lambda wc, attempt: int((96 + 64 * attempt) * 1024),
         time_hrs=lambda wc, attempt: 71 * attempt,
+    params:
+        sort_mem=4096,
+        sort_threads=CPU_LOW,
         tempdir=lambda wc: DIR_PROC.joinpath(
             "tmp", "20-postprocess", "pacbio_clr", "read_asm_align",
             "{sample}_clr.sort.wd"
         )
-    params:
-        sort_mem=4096,
-        sort_threads=CPU_LOW
     shell:
         "mkdir -p {params.tempdir} && TMPDIR={params.tempdir} "
         "pbmm2 align --sort --sort-memory {params.sort_mem}M --sort-threads {params.sort_threads} "
