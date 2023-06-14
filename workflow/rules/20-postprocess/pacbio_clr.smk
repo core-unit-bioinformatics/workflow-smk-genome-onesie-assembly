@@ -64,9 +64,9 @@ rule pbmm2_produce_polishing_alignments:
     params:
         sort_mem=4096,
         sort_threads=CPU_LOW,
-        tempdir=lambda wc: DIR_PROC.joinpath(
+        tempdir=lambda wildcards: DIR_PROC.joinpath(
             "tmp", "20-postprocess", "pacbio_clr", "read_asm_align",
-            "{sample}_clr.sort.wd"
+            "{wildcards.sample}_clr.sort.wd"
         )
     shell:
         "mkdir -p {params.tempdir} && TMPDIR={params.tempdir} "
