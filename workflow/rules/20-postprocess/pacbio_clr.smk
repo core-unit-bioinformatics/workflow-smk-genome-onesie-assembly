@@ -59,8 +59,8 @@ rule pbmm2_produce_polishing_alignments:
         DIR_ENVS.joinpath("pbtools.yaml")
     threads: CPU_HIGH
     resources:
-        mem_mb=lambda wc, attempt: int((96 + 64 * attempt) * 1024),
-        time_hrs=lambda wc, attempt: 71 * attempt,
+        mem_mb=lambda wc, attempt: int((32 + 32 * attempt) * 1024),
+        time_hrs=lambda wc, attempt: 11 * attempt,
     params:
         sort_mem=4096,
         sort_threads=CPU_LOW,
