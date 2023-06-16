@@ -93,9 +93,9 @@ rule gcpp_assembly_polishing_pass1:
             "20-postprocess", "pacbio_clr", "read_asm_align",
             "{sample}_clr.sort.bam"
         ),
-        pbi=DIR_PROC.joinpath(
+        bai=DIR_PROC.joinpath(
             "20-postprocess", "pacbio_clr", "read_asm_align",
-            "{sample}_clr.sort.bam.pbi"
+            "{sample}_clr.sort.bam.bai"
         )
     output:
         asm=DIR_PROC.joinpath(
