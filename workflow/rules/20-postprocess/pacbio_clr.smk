@@ -44,6 +44,10 @@ rule pbmm2_produce_polishing_alignments:
         bam=DIR_PROC.joinpath(
             "20-postprocess", "pacbio_clr", "read_asm_align",
             "{sample}_clr.sort.bam"
+        ),
+        bai=DIR_PROC.joinpath(
+            "20-postprocess", "pacbio_clr", "read_asm_align",
+            "{sample}_clr.sort.bam.bai"
         )
     log:
         DIR_LOG.joinpath(
@@ -72,7 +76,7 @@ rule pbmm2_produce_polishing_alignments:
         "mkdir -p {params.tempdir} && TMPDIR={params.tempdir} "
         "pbmm2 align --sort --sort-memory {params.sort_mem}M --sort-threads {params.sort_threads} "
             "--num-threads {threads} --log-level DEBUG --log-file {log} "
-            "--preset SUBREAD --sample {wildcards.sample} --bam-index NONE "
+            "--preset SUBREAD --sample {wildcards.sample} --bam-index BAI "
             "{input.asm} {input.reads_fofn} {output.bam}"
         " ; rm -rfd {params.tempdir}"
 
