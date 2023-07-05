@@ -2,6 +2,8 @@
 
 RUN_FLYE = config.get("run_flye", False)
 assert isinstance(RUN_FLYE, bool)
+RUN_FLYE_HAPDUP = config.get("run_flye_hapdup", False)
+assert isinstance(RUN_FLYE_HAPDUP, bool)
 
 if RUN_FLYE:
     FLYE_GENOME_SIZE_PARAM = config["flye_genome_size"]

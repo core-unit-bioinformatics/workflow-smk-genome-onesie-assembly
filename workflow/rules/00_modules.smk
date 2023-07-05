@@ -13,6 +13,8 @@ include: "05-generics/convert.smk"
 
 include: "10-assemble/pacbio_clr.smk"
 
-include: "20-postprocess/pacbio_clr.smk"
+include: "20-postprocess/pacbio_clr_readaln.smk"
+include: "20-postprocess/pacbio_clr_hapdup.smk"
+include: "20-postprocess/pacbio_clr_polish.smk"
 
 include: "99-outputs/flye.smk"

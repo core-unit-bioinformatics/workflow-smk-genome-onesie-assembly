@@ -42,9 +42,10 @@ rule flye_assemble_pacbio_clr:
 
 rule run_flye_pacbio_clr_assemblies:
     input:
-        checks = expand(
+        assemblies = expand(
             DIR_PROC.joinpath(
-                "10-assemble", "flye", "{sample}_clr.wd", "assembly.fasta"
+                "10-assemble", "flye", "{sample}_clr.wd", "assembly.{ext}"
             ),
-            sample=CLR_SAMPLES
+            sample=CLR_SAMPLES,
+            ext=["fasta", "fasta.fai"]
         )
