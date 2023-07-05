@@ -75,7 +75,8 @@ rule pbmm2_produce_read_assembly_alignments:
         )
     shell:
         "mkdir -p {params.tempdir} && TMPDIR={params.tempdir} "
-        "pbmm2 align --sort --sort-memory {params.sort_mem}M --sort-threads {params.sort_threads} "
+        "pbmm2 align --sort --sort-memory {params.sort_mem}M "
+            "--sort-threads {params.sort_threads} --median-filter "
             "--num-threads {threads} --log-level DEBUG --log-file {log} "
             "--preset SUBREAD --sample {wildcards.sample} --bam-index BAI "
             "{input.asm} {input.reads_fofn} {output.bam}"
