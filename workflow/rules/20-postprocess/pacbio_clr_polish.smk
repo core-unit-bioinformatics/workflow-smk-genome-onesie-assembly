@@ -46,3 +46,15 @@ rule gcpp_assembly_polishing_pass1:
         "gcpp --num-threads {threads} --reference {input.asm} --algorithm arrow "
             "--log-level DEBUG --log-file {log} "
             "--output {output.asm},{output.gff},{output.vcf} {input.bam}"
+
+
+rule run_pacbio_clr_flye_polish_assembly_pass1:
+    input:
+        hapdup_chk = expand(
+            DIR_PROC.joinpath(
+            "20-postprocess", "pacbio_clr", "asm_polishing",
+            "{sample}_clr.pass1.wd",
+            "{sample}_clr.pass1.fasta"
+            ),
+            sample=CLR_SAMPLES,
+        )
