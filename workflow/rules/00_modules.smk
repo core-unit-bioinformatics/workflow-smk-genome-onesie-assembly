@@ -12,6 +12,7 @@ include: "05-generics/indexing.smk"
 include: "05-generics/convert.smk"
 
 include: "10-assemble/pacbio_clr.smk"
+include: "10-assemble/pacbio_hifi.smk"
 
 include: "20-postprocess/pacbio_clr_readaln.smk"
 include: "20-postprocess/pacbio_clr_hapdup.smk"
