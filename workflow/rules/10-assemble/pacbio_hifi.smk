@@ -27,6 +27,8 @@ rule hifiasm_assemble_pacbio_hifi:
         prefix=lambda wildcards, output: pathlib.Path(output.check).with_suffix(".wd").joinpath(wildcards.sample),
     shell:
         "hifiasm -t {threads} -o {params.wd} {input.reads} &> {log}"
+            " && "
+        "touch {output.check}"
 
 
 rule run_hifiasm_pacbio_hifi_assemblies:
