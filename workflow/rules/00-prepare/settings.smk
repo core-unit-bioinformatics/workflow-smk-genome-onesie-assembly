@@ -1,4 +1,6 @@
+import pathlib
 
+DATA_ROOT = pathlib.Path(config.get("data_root", "/"))
 
 RUN_FLYE = config.get("run_flye", False)
 assert isinstance(RUN_FLYE, bool)
