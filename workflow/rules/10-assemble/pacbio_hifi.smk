@@ -29,7 +29,7 @@ rule hifiasm_assemble_pacbio_hifi:
         "hifiasm -t {threads} -o {params.wd} {input.reads} &> {log}"
 
 
-rule run_hifiasm_pacbio_clr_assemblies:
+rule run_hifiasm_pacbio_hifi_assemblies:
     input:
         assemblies = expand(
             rules.hifiasm_assemble_pacbio_hifi.output.check,
