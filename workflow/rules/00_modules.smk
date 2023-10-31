@@ -5,8 +5,8 @@ add your pipeline-specific modules
 to "commons/00_commons.smk"
 """
 
-include: "00-prepare/sample_table.smk"
 include: "00-prepare/settings.smk"
+include: "00-prepare/sample_table.smk"
 
 include: "05-generics/indexing.smk"
 include: "05-generics/convert.smk"
