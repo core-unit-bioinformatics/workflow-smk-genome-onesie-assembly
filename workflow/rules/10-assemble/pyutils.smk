@@ -1,15 +1,16 @@
 
-def hifiasm_memory_gb(input_size_mb):
+def hifiasm_memory_mb(input_size_mb):
 
     input_gb = input_size_mb / 1024
 
     if input_gb < 100:
-        run_mem = 160
+        mem_gb = 160
     elif input_gb < 200:
-        run_mem = 320
+        mem_gb = 320
     else:
-        run_mem = 480
-    return run_mem
+        mem_gb = 480
+    mem_mb = int(mem_gb * 1024)
+    return mem_mb
 
 
 def hifiasm_cpu_cores(input_size_mb):
