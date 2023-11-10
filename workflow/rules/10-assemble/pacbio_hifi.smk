@@ -18,9 +18,9 @@ rule hifiasm_assemble_pacbio_hifi:
         )
     conda:
         DIR_ENVS.joinpath("assembler", "hifiasm.yaml")
-    threads: CPU_HIGH
+    threads: lambda wildcards, input: hifiasm_cpu_cores(input.size_mb)
     resources:
-        mem_mb=lambda wildcards, attempt: int((160 * attempt) * 1024),
+        mem_mb=lambda wildcards, attempt, input: hifiasm_memory_gb(input.size_mb) * attempt,
         time_hrs=lambda wildcards, attempt: 71 * attempt
     params:
         prefix=lambda wildcards, output: pathlib.Path(output.check).with_suffix(".wd").joinpath(wildcards.sample),
