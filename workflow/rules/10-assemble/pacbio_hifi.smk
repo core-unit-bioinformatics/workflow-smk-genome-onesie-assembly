@@ -24,7 +24,10 @@ rule hifiasm_assemble_pacbio_hifi:
         time_hrs=lambda wildcards, attempt: 71 * attempt
     params:
         prefix=lambda wildcards, output: pathlib.Path(output.check).with_suffix(".wd").joinpath(wildcards.sample),
+        wd=lambda wildcards, output: pathlib.Path(output.check).with_suffix(".wd"),
     shell:
+        "mkdir -p {params.wd}"
+            " && "
         "hifiasm -t {threads} -o {params.prefix} {input.reads} &> {log}"
             " && "
         "touch {output.check}"

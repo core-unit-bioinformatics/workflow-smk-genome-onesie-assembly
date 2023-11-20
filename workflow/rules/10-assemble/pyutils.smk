@@ -8,7 +8,7 @@ def hifiasm_memory_mb(input_size_mb):
     elif input_gb < 200:
         mem_gb = 320
     else:
-        mem_gb = 480
+        mem_gb = 960
     mem_mb = int(mem_gb * 1024)
     return mem_mb
 
