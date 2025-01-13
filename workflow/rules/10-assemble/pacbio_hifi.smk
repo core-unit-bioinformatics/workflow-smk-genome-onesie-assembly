@@ -126,6 +126,8 @@ if HIFIASM_DUMP_EC_READS:
         conda:
             DIR_ENVS.joinpath("biotools.yaml")
         threads: CPU_LOW
+        resources:
+            time_hrs=lambda wildcards, attempt: attempt * attempt
         shell:
             "pigz -p {threads} -c {input.fasta} > {output.fagz}"
 
@@ -150,6 +152,8 @@ if HIFIASM_DUMP_READ_OVERLAPS:
         conda:
             DIR_ENVS.joinpath("biotools.yaml")
         threads: CPU_LOW
+        resources:
+            time_hrs=lambda wildcards, attempt: attempt * attempt
         shell:
             "pigz -p {threads} -c {input.paf} > {output.paf}"
 
