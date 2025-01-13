@@ -1,4 +1,5 @@
 name: biotools
 dependencies:
-  - samtools=1.16.1
+  - samtools=1.21.*
   - pigz=2.6
+  - gfatools=0.5
