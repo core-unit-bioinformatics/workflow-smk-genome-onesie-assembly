@@ -158,13 +158,17 @@ if HIFIASM_DUMP_READ_OVERLAPS:
     )
 
 
-
-
 rule run_hifiasm_pacbio_hifi_assemblies:
     input:
         assemblies = expand(
             rules.hifiasm_assemble_pacbio_hifi_unphased.output.check,
             sample=HIFI_SAMPLES,
         ),
-        main_fasta = rules.hifiasm_dump_main_assembly_to_fasta.output,
-        hifiasm_files = HIFIASM_ASSEMBLY_RESULT_FILES
+        main_fasta = expand(
+            rules.hifiasm_dump_main_assembly_to_fasta.output,
+            sample=HIFI_SAMPLES
+        ),
+        hifiasm_files = expand(
+            HIFIASM_ASSEMBLY_RESULT_FILES,
+            sample=HIFI_SAMPLES
+        )
