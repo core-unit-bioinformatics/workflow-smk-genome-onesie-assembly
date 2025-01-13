@@ -154,7 +154,7 @@ if HIFIASM_DUMP_READ_OVERLAPS:
             "pigz -p {threads} -c {input.paf} > {output.paf}"
 
     HIFIASM_ASSEMBLY_RESULT_FILES.append(
-        rules.compress_hifiasm_read_overlaps.paf
+        rules.compress_hifiasm_read_overlaps.output.paf
     )
 
 
