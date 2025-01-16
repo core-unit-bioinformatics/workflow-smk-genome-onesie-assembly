@@ -97,11 +97,11 @@ rule hifiasm_dump_main_assembly_to_fasta:
     resources:
         mem_mb=lambda wildcards, attempt: 2048 * attempt
     shell:
-        "gfatools -l 0 {input.gfa1} | bgzip -c --threads {threads} > {output.fasta1}"
+        "gfatools gfa2fa -l 0 {input.gfa1} | bgzip -c --threads {threads} > {output.fasta1}"
             " && "
         "samtools faidx {output.fasta1}"
             " && "
-        "gfatools -l 0 {input.gfa2} | bgzip -c --threads {threads} > {output.fasta2}"
+        "gfatools gfa2fa -l 0 {input.gfa2} | bgzip -c --threads {threads} > {output.fasta2}"
             " && "
         "samtools faidx {output.fasta2}"
 
