@@ -95,7 +95,7 @@ rule hifiasm_dump_main_assembly_to_fasta:
         DIR_ENVS.joinpath("biotools.yaml")
     threads: CPU_LOW
     resources:
-        mem_mb=lambda wildcards, attempt: 2048 * attempt
+        mem_mb=lambda wildcards, attempt: 8192 * attempt
     shell:
         "gfatools gfa2fa -l 0 {input.gfa1} | bgzip -c --threads {threads} > {output.fasta1}"
             " && "
