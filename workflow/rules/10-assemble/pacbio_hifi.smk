@@ -85,11 +85,11 @@ rule hifiasm_dump_main_assembly_to_fasta:
     output:
         fasta1 = DIR_RES.joinpath(
             "assemblies", "hifiasm", "{sample}_hifi",
-            "{sample}_hifi.hifiasm.asm-" + f"{[HIFIASM_UNPHASED_MAIN_WILDCARDS[0]]}.fasta.gz"
+            "{sample}_hifi.hifiasm.asm-" + f"{HIFIASM_UNPHASED_MAIN_WILDCARDS[0]}.fasta.gz"
         ),
         fasta2 = DIR_RES.joinpath(
             "assemblies", "hifiasm", "{sample}_hifi",
-            "{sample}_hifi.hifiasm.asm-" + f"{[HIFIASM_UNPHASED_MAIN_WILDCARDS[1]]}.fasta.gz"
+            "{sample}_hifi.hifiasm.asm-" + f"{HIFIASM_UNPHASED_MAIN_WILDCARDS[1]}.fasta.gz"
         )
     conda:
         DIR_ENVS.joinpath("biotools.yaml")
