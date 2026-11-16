@@ -1,5 +1,7 @@
 import re
 
+RUN_HIFIASM = config.get("run_hifiasm", False)
+assert isinstance(RUN_HIFIASM, bool)
 
 HIFIASM_PRIMARY_ALT_ASSEMBLY=config.get("hifiasm_primary_alt", False)
 assert isinstance(HIFIASM_PRIMARY_ALT_ASSEMBLY, bool)
