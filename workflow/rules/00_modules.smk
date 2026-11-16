@@ -21,3 +21,4 @@ include: "20-postprocess/pacbio_clr_hapdup.smk"
 include: "20-postprocess/pacbio_clr_polish.smk"
 
 include: "99-outputs/flye.smk"
+include: "99-outputs/hifiasm.smk"
