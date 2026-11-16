@@ -1,4 +1,17 @@
 
+# some common file format
+# extensions to collect input
+# from folders via (recursive)
+# glob expansion
+input_file_ext:
+  - fastq.gz
+  - fasta.gz
+  - fq.gz
+  - fa.gz
+  - fna.gz
+  - fasta
+
+
 # Config options to use reference container
 # as part of the pipeline
 use_reference_container: false
