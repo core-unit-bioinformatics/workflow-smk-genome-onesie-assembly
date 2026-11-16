@@ -5,7 +5,8 @@ import re
 
 import pandas
 
-SAMPLES = None
+# superseeded by update to most recent template
+# SAMPLES = None
 MAP_SAMPLE_TO_INPUT_FILES = None
 
 CLR_SAMPLES = None
@@ -16,15 +17,7 @@ ONT_SAMLES = None
 CONSTRAINT_ONT_SAMPLES = None
 
 
-def process_sample_sheet():
-
-    SAMPLE_SHEET_FILE = pathlib.Path(config["samples"]).resolve(strict=True)
-    SAMPLE_SHEET = pandas.read_csv(
-        SAMPLE_SHEET_FILE,
-        sep="\t",
-        header=0,
-        comment="#"
-    )
+def process_sample_sheet(SAMPLE_SHEET):
 
     # step 1: each row is a sample,
     # just collect the input files
@@ -34,9 +27,6 @@ def process_sample_sheet():
     )
     assert sum(sample_counts.values()) == SAMPLE_SHEET.shape[0]
     all_samples = sorted(sample_counts.keys())
-
-    global SAMPLES
-    SAMPLES = all_samples
 
     global CLR_SAMPLES
     CLR_SAMPLES = sorted(sample_lists["clr"])
@@ -77,7 +67,7 @@ def collect_input_files(sample_sheet):
         sample_lists[input_read_type].append(sample)
 
         level_1_key = sample, input_read_type
-        seq_input, input_hashes = collect_sequence_input(row.input)
+        seq_input, input_hashes = collect_sequence_input(row.input_path)
 
         # need to distinguish Pacbio BAM
         # from reads already dumped to FASTQ
@@ -244,4 +234,4 @@ def _collect_files(folder):
         raise ValueError(f"No input files found underneath {folder}")
     return all_files
 
-process_sample_sheet()
+process_sample_sheet(SAMPLE_SHEET)

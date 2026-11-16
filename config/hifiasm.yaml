@@ -1,0 +1,9 @@
+
+run_hifiasm: true
+
+hifiasm_primary_alt: true
+
+hifiasm_telomere_motif: human
+
+hifiasm_dump_read_overlaps: true
+hifiasm_dump_ec_reads: true
