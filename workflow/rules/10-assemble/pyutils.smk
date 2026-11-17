@@ -24,3 +24,13 @@ def hifiasm_cpu_cores(input_size_mb):
     else:
         cores = min(48, CPU_MAX)
     return cores
+
+
+def hifiasm_wd_file(sample, run_mode, ext):
+    """Path to a file in the hifiasm working directory
+    of the given sample and run mode, e.g. ext='.ec.fa'
+    """
+    stem = HIFIASM_RUN_MODE_STEMS[run_mode].format(sample=sample)
+    return DIR_PROC.joinpath(
+        "10-assemble", "hifiasm", f"{stem}.wd", f"{sample}{ext}"
+    )

@@ -16,6 +16,12 @@ CONSTRAINT_HIFI_SAMPLES = None
 ONT_SAMLES = None
 CONSTRAINT_ONT_SAMPLES = None
 
+UNPHASED_SAMPLES = None
+
+TRIO_PHASED_SAMPLES = None
+
+HIC_PHASED_SAMPLES = None
+
 
 def process_sample_sheet(SAMPLE_SHEET):
 
@@ -34,6 +40,15 @@ def process_sample_sheet(SAMPLE_SHEET):
     HIFI_SAMPLES = sorted(sample_lists["hifi"])
     global ONT_SAMPLES
     ONT_SAMPLES = sorted(sample_lists["ont"])
+
+    global UNPHASED_SAMPLES
+    UNPHASED_SAMPLES = sorted(sample_lists["unphased"])
+
+    global TRIO_PHASED_SAMPLES
+    TRIO_PHASED_SAMPLES = sorted(sample_lists["trio_phased"])
+
+    global HIC_PHASED_SAMPLES
+    HIC_PHASED_SAMPLES = sorted(sample_lists["hic_phased"])
 
     global MAP_SAMPLE_TO_INPUT_FILES
     MAP_SAMPLE_TO_INPUT_FILES = sample_input
@@ -57,7 +72,10 @@ def collect_input_files(sample_sheet):
     sample_lists = {
         "clr": [],
         "hifi": [],
-        "ont": []
+        "ont": [],
+        "trio_phased": [],
+        "hic_phased": [],
+        "unphased": []
     }
 
     known_path_ids = dict()
@@ -78,8 +96,36 @@ def collect_input_files(sample_sheet):
             ("bam", "all"): [],
             ("bam", "path_hashes"): [],
             ("bam", "path_ids"): [],
-
+            ("yak", "pat"): "",
+            ("yak", "mat"): ""
         }
+
+        # columns may exist in the sample sheet, but be
+        # empty (NaN) for individual rows (= no trio data)
+        pat_kmer = getattr(row, "pat_kmer", None)
+        mat_kmer = getattr(row, "mat_kmer", None)
+        has_pat = isinstance(pat_kmer, str) and pat_kmer.strip() != ""
+        has_mat = isinstance(mat_kmer, str) and mat_kmer.strip() != ""
+        if has_pat != has_mat:
+            raise ValueError(
+                f"Sample {sample} ({input_read_type}): trio phasing requires "
+                "both paternal and maternal k-mer databases "
+                f"(pat_kmer: {pat_kmer} / mat_kmer: {mat_kmer})"
+            )
+
+        if has_pat and has_mat:
+            pat_kmer = pathlib.Path(pat_kmer.strip()).resolve(strict=True)
+            assert pat_kmer.suffix == ".yak", pat_kmer
+            mat_kmer = pathlib.Path(mat_kmer.strip()).resolve(strict=True)
+            assert mat_kmer.suffix == ".yak", mat_kmer
+            file_map[('yak', 'pat')] = pat_kmer
+            file_map[('yak', 'mat')] = mat_kmer
+            sample_lists["trio_phased"].append((sample, input_read_type))
+
+        else:
+            sample_lists["unphased"].append((sample, input_read_type))
+
+
         for seq_file, path_hash in zip(seq_input, input_hashes):
             # to improve readability, try using just a prefix
             # of full path hash

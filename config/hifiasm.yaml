@@ -7,3 +7,36 @@ hifiasm_telomere_motif: human
 
 hifiasm_dump_read_overlaps: true
 hifiasm_dump_ec_reads: true
+
+# Purging of duplicate haplotigs ('-l' purge level)
+# hifiasm removes contigs it considers to be (haplotype) duplicates
+# of other contigs. For primary/alt assemblies, purged haplotigs are
+# moved to the alt set.
+# Levels (as implemented in hifiasm v0.25.0):
+# Start and see here:
+# https://github.com/chhylp123/hifiasm/blob/master/Purge_Dups.cpp
+# 0: no purging
+# 1: purge only haplotigs contained in other contigs
+#    (read-level similarity threshold 0.75)
+# 2: also purge overlapping (non-contained) haplotigs
+#    (read-level similarity threshold 0.75)
+# 3: as 2, but with a lower similarity threshold of 0.55,
+#    i.e., more aggressive purging
+# Trade-off:
+# - not enough purging: retained haplotype duplications inflate
+#   the assembly beyond the expected (haploid) genome size
+# - too aggressive purging: may remove sequence that is not a
+#   haplotype duplication (e.g., repeats or segmental duplications)
+# For inbred/homozygous genomes, hifiasm recommends '-l 0'; in this
+# workflow, use the primary/alt mode for that ('hifiasm_primary_alt: true')
+
+# hifiasm purge level for unphased (primary/alt),
+# read-phased (bipartition) and (later) Hi-C-phased assemblies.
+# Valid: 0-3 (hifiasm default: 3); the read-phased
+# (bipartition) mode requires a level > 0
+hifiasm_purge_dups: 3
+# hifiasm purge level for trio-phased assemblies.
+# Valid: 0 or 1 (hifiasm default: 0)
+hifiasm_trio_purge_dups: 0
+
+hifiasm_dual_scaffolding: true

@@ -10,9 +10,25 @@ if HIFIASM_PRIMARY_ALT_ASSEMBLY:
 else:
     HIFIASM_PRIMARY_ALT_ASSEMBLY_PARAM=""
 
-HIFIASM_PURGE_DUPS_LEVEL=config.get("hifiasm_purge_dups", 1)
+# hifiasm v0.25.0 has two internal purge levels, both set by '-l':
+# - 'purge_level_primary': all non-trio modes (primary/alt, bipartition,
+#   and Hi-C phasing); valid: 0-3; hifiasm default: 3
+# - 'purge_level_trio': trio mode only; valid: 0-1; hifiasm default: 0
+# The workflow keeps them separate, so that purging for trio-phased
+# assemblies must be activated explicitly.
+
+# primary/alt, bipartition, (later) Hi-C phasing
+HIFIASM_PURGE_DUPS_LEVEL=config.get("hifiasm_purge_dups", 3)
 assert isinstance(HIFIASM_PURGE_DUPS_LEVEL, int)
 assert 0 <= HIFIASM_PURGE_DUPS_LEVEL <= 3
+
+# trio phasing
+HIFIASM_TRIO_PURGE_DUPS_LEVEL=config.get("hifiasm_trio_purge_dups", 0)
+assert isinstance(HIFIASM_TRIO_PURGE_DUPS_LEVEL, int)
+assert 0 <= HIFIASM_TRIO_PURGE_DUPS_LEVEL <= 1, (
+    "hifiasm supports only purge levels 0 or 1 for trio phasing "
+    f"('hifiasm_trio_purge_dups'): {HIFIASM_TRIO_PURGE_DUPS_LEVEL}"
+)
 
 HIFIASM_TELOMERE_MOTIF=config.get("hifiasm_telomere_motif", None)
 if HIFIASM_TELOMERE_MOTIF is not None:
@@ -32,6 +48,17 @@ if HIFIASM_DUAL_SCAFFOLDING:
     HIFIASM_DUAL_SCAFFOLDING_PARAM="--dual-scaf"
 else:
     HIFIASM_DUAL_SCAFFOLDING_PARAM=""
+
+# hifiasm v0.25.0 only scaffolds when writing the two haplotype assemblies
+# (bipartition and trio modes; see 'output_trio_graph_joint()' in Overlaps.cpp).
+# For unphased primary/alt assemblies ('--primary'), the option is accepted
+# but silently ignored.
+if HIFIASM_DUAL_SCAFFOLDING and HIFIASM_PRIMARY_ALT_ASSEMBLY:
+    logout(
+        "hifiasm: 'hifiasm_dual_scaffolding' has no effect on unphased "
+        "primary/alt assemblies ('hifiasm_primary_alt: true'); it only "
+        "applies to (trio-/hic-)phased assemblies in this run."
+    )
 
 HIFIASM_DUMP_READ_OVERLAPS=config.get("hifiasm_dump_read_overlaps", False)
 assert isinstance(HIFIASM_DUMP_READ_OVERLAPS, bool)
