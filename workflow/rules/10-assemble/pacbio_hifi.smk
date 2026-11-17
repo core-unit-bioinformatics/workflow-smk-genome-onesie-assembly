@@ -4,8 +4,8 @@
 
 
 HIFIASM_UNPHASED_OUTPUT_EXTENSIONS = [
-    ".bp.r_utg.gfa", ".bp.p_utg.gfa",
-    ".bp.r_utg.noseq.gfa", ".bp.p_utg.noseq.gfa",
+    ".r_utg.gfa", ".p_utg.gfa",
+    ".r_utg.noseq.gfa", ".p_utg.noseq.gfa",
     ".ovlp.reverse.bin", ".ovlp.source.bin", ".ec.bin"
 ]
 
@@ -16,15 +16,15 @@ if HIFIASM_DUMP_READ_OVERLAPS:
     HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".ovlp.paf")
 
 if HIFIASM_PRIMARY_ALT_ASSEMBLY:
-    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".bp.p_ctg.gfa")
-    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".bp.a_ctg.gfa")
+    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".p_ctg.gfa")
+    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".a_ctg.gfa")
     HIFIASM_UNPHASED_MAIN_WILDCARDS = ["prm", "alt"]
-    HIFIASM_UNPHASED_MAIN_EXT = [".bp.p_ctg.gfa", ".bp.a_ctg.gfa"]
+    HIFIASM_UNPHASED_MAIN_EXT = [".p_ctg.gfa", ".a_ctg.gfa"]
 else:
-    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".bp.hap1.p_ctg.gfa")
-    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".bp.hap2.p_ctg.gfa")
+    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".hap1.p_ctg.gfa")
+    HIFIASM_UNPHASED_OUTPUT_EXTENSIONS.append(".hap2.p_ctg.gfa")
     HIFIASM_UNPHASED_MAIN_WILDCARDS = ["hap1", "hap2"]
-    HIFIASM_UNPHASED_MAIN_EXT = [".bp.hap1.p_ctg.gfa", ".bp.hap2.p_ctg.gfa"]
+    HIFIASM_UNPHASED_MAIN_EXT = [".hap1.p_ctg.gfa", ".hap2.p_ctg.gfa"]
 
 HIFIASM_OUTPUT_FILES = [
     DIR_PROC.joinpath(
